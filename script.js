@@ -1,9 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("modal");
     const btnAfficher = document.getElementById("btnAfficher");
+    const closeModal = document.getElementById("closeModal");
 
-    btnAfficher.addEventListener("click", () => modal.classList.remove("hidden"));
-    closeModal.addEventListener("click", () => modal.classList.add("hidden"));
+    btnAfficher.addEventListener("click", () => {
+        modal.classList.remove("hidden");
+    });
+    closeModal.addEventListener("click", () => {
+        modal.classList.add("hidden");
+    });
 
     const container = document.getElementById("experience_container");
     const photoUrlInput = document.getElementById("photo_url");
@@ -38,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(newExp);
     });
 
-    
+
     const nameRegex = /^[a-zA-ZÀ-ÿ\s]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^(\+212|0)(6|7)\d{8}$/;
@@ -65,6 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (role === "Choisir un rôle") return alert(" Choisissez un rôle !");
         if (experiences.length === 0) return alert(" Ajoutez au moins une expérience !");
 
+        
         const employee = { nom, email, tel, role, photo, experiences };
         employees.push(employee);
         localStorage.setItem("employees", JSON.stringify(employees));
