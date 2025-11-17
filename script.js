@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (role === "Choisir un rôle") return alert(" Choisissez un rôle !");
         if (experiences.length === 0) return alert(" Ajoutez au moins une expérience !");
 
-        
+
         const employee = { nom, email, tel, role, photo, experiences };
         employees.push(employee);
         localStorage.setItem("employees", JSON.stringify(employees));
@@ -81,5 +81,30 @@ document.addEventListener("DOMContentLoaded", () => {
         photoPreview.classList.add("hidden");
         photoText.classList.remove("hidden");
     });
+
+    // {
+    //     id: number,
+    //         nom: string,
+    //             role: string,
+    //                 url: string,
+    //                     email: string,
+    //                         telephone: string,
+    //                             experience: array,
+    //                                 location: string("unsinged" ou zone)
+    // }
+    // localStorage.setItem('employees', JSON.stringify(employes));
+
+    // employes = JSON.parse(localStorage.getItem('employees')) || [];
+    // employelist = employes.filter(emp => emp.location === "unsinged");
+
+    // const zoneRoles = {
+    //     conference: null,     
+    //     personnel: null,       
+    //     reception: ["Manager", "Réceptionnistes", "Nettoyage"],
+    //     serveurs: ["Manager", "Techniciens IT", "Nettoyage"],
+    //     securite: ["Manager", "Agents de sécurité", "Nettoyage"],
+    //     archives: ["Manager"]
+    // };
+
 
 });
