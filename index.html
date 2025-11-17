@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon-Entreprise</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="flex w-full h-screen border-2">
+        <div class="w-[20%]">
+            <div class="flex flex-col items-center gap-2 mt-[6px] ">
+                <button id="btnAfficher" type="button"
+                    class="bg-blue-500 rounded-lg hover:bg-blue-300 text-black  font-bold h-[9vh] w-[15vw] ">
+                    Ajouter Un Employé
+                </button>
+                <button id="btnEmploye"
+                    class="bg-green-500 rounded-lg hover:bg-green-300 text-black  font-bold h-[9vh] w-[15vw] ">
+                    Afficher Les Employés
+                </button>
+                <div id="listeEmployes" class="mt-4 grid gap-4"></div>
+            </div>
+
+
+        </div>
+        <section class=" PlanSection border-2 w-[80%] h-screen">
+            <div class="parent h-full">
+                <div class="salleConference border-2"> Salle de Conférence</div>
+                <div class="reception ">Réception</div>
+                <div class="salleServeurs ">Salle de Serveurs</div>
+                <div class="salleSecurite ">Salle de Sécurités</div>
+                <div class="sallePersonnel">Salle de Personnel</div>
+                <div class="salleArchive"> Salle D'Archive</div>
+                <div class="empty1"></div>
+                <div class="empty2"></div>
+                <div class="empty3"></div>
+                <div class="empty4"></div>
+                <div class="empty5"></div>
+            </div>
+        </section>
+    </main>
+    <script src="main.js"></script>
+</body>
+
+</html>
