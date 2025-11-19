@@ -1,34 +1,41 @@
 document.addEventListener("DOMContentLoaded", () => {
+
     const modal = document.getElementById("modal");
     const btnAfficher = document.getElementById("btnAfficher");
     const closeModal = document.getElementById("closeModal");
-
-    btnAfficher.addEventListener("click", () => {
-        modal.classList.remove("hidden");
-    });
-    closeModal.addEventListener("click", () => {
-        modal.classList.add("hidden");
-    });
 
     const container = document.getElementById("experience_container");
     const photoUrlInput = document.getElementById("photo_url");
     const photoPreview = document.getElementById("photo_preview");
     const photoText = document.getElementById("text_container_photo");
 
+    const form = document.getElementById("formulaire");
+
+    // Load employees
     let employees = JSON.parse(localStorage.getItem("employees")) || [];
 
+    // --- OPEN / CLOSE MODAL ---
+    btnAfficher.addEventListener("click", () => modal.classList.remove("hidden"));
+    closeModal.addEventListener("click", () => modal.classList.add("hidden"));
+
+
+    // -------- PHOTO PREVIEW --------
     photoUrlInput.addEventListener("input", () => {
         const url = photoUrlInput.value.trim();
+
         if (!url) {
             photoPreview.classList.add("hidden");
             photoText.classList.remove("hidden");
             return;
         }
+
         photoPreview.src = url;
         photoPreview.classList.remove("hidden");
         photoText.classList.add("hidden");
     });
 
+
+    // -------- AJOUTER EXPERIENCES --------
     container.addEventListener("click", (e) => {
         if (!e.target.classList.contains("btn-add")) return;
 
@@ -44,12 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    const nameRegex = /^[a-zA-ZÀ-ÿ\s]+$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^(\+212|0)(6|7)\d{8}$/;
-    const urlRegex = /^(https?:\/\/)[\w\-]+(\.[\w\-]+)+/;
-    const form = document.getElementById("formulaire");
-
+    // -------- AJOUT EMPLOYÉ --------
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -63,48 +65,49 @@ document.addEventListener("DOMContentLoaded", () => {
             .map(exp => exp.value.trim())
             .filter(exp => exp !== "");
 
-        if (!nameRegex.test(nom)) return alert(" Nom invalide !");
-        if (!emailRegex.test(email)) return alert(" Email invalide !");
-        if (!phoneRegex.test(tel)) return alert(" Téléphone invalide !");
-        if (!urlRegex.test(photo)) return alert(" URL de photo invalide !");
-        if (role === "Choisir un rôle") return alert(" Choisissez un rôle !");
-        if (experiences.length === 0) return alert(" Ajoutez au moins une expérience !");
-
-
         const employee = { nom, email, tel, role, photo, experiences };
+
         employees.push(employee);
         localStorage.setItem("employees", JSON.stringify(employees));
 
-        alert(" Employé ajouté avec succès !");
+        alert("Employé ajouté !");
         modal.classList.add("hidden");
+
         form.reset();
         photoPreview.classList.add("hidden");
         photoText.classList.remove("hidden");
     });
 
-    // {
-    //     id: number,
-    //         nom: string,
-    //             role: string,
-    //                 url: string,
-    //                     email: string,
-    //                         telephone: string,
-    //                             experience: array,
-    //                                 location: string("unsinged" ou zone)
-    // }
-    // localStorage.setItem('employees', JSON.stringify(employes));
 
-    // employes = JSON.parse(localStorage.getItem('employees')) || [];
-    // employelist = employes.filter(emp => emp.location === "unsinged");
+    // -------- AFFICHAGE EMPLOYÉS --------
+    function affichageEmployees() {
+        const btnAfficherEmployees = document.getElementById("btnEmploye");
+        const liste = document.getElementById("employeesList");
 
-    // const zoneRoles = {
-    //     conference: null,     
-    //     personnel: null,       
-    //     reception: ["Manager", "Réceptionnistes", "Nettoyage"],
-    //     serveurs: ["Manager", "Techniciens IT", "Nettoyage"],
-    //     securite: ["Manager", "Agents de sécurité", "Nettoyage"],
-    //     archives: ["Manager"]
-    // };
+        btnAfficherEmployees.addEventListener("click", () => {
+            liste.innerHTML = "";
+            liste.classList.remove("hidden");
 
+            const data = JSON.parse(localStorage.getItem("employees")) || [];
+
+            if (data.length === 0) {
+                liste.innerHTML = "<p class='text-red-500 font-bold mt-3'>Aucun employé trouvé.</p>";
+                return;
+            }
+
+            data.forEach((emp) => {
+                liste.innerHTML += `
+                    <div class="rounded-xl p-3 bg-white shadow mt-3 flex items-center gap-3 border">
+                        <img src="${emp.photo}" class="w-12 h-12 rounded-full object-cover" />
+                        <div>
+                            <p class="font-bold">${emp.nom}</p>
+                            <p class="text-sm text-gray-600">${emp.role}</p>
+                        </div>
+                    </div>`;
+            });
+        });
+    }
+
+    affichageEmployees();
 
 });
