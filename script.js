@@ -10,15 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const employeesList = document.getElementById("employeesList");
     const profileModal = document.getElementById("profileModal");
     const profileContent = document.getElementById("profileContent");
-    const btnEmploye = document.getElementById("btnEmploye");
+    
 
     let employees = JSON.parse(localStorage.getItem("employees")) || [];
 
     btnAfficher.addEventListener("click", () => modal.classList.remove("hidden"));
     closeModal.addEventListener("click", () => modal.classList.add("hidden"));
-    btnEmploye.addEventListener("click", () => {
-        renderEmployeesList();
-    });
+    
 
 
 
