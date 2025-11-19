@@ -12,22 +12,25 @@
 <body>
     <main class="flex w-full h-screen border-2">
         <div class="w-[20%]">
-            <div class="flex flex-col items-center gap-2 mt-[6px] ">
-                <button id="btnAfficher" type="button"
-                    class="bg-blue-500 rounded-lg hover:bg-blue-300 text-black  font-bold h-[9vh] w-[15vw] ">
-                    Ajouter Un Employé
-                </button>
-                <button id="btnEmploye"
-                    class="bg-green-500 rounded-lg hover:bg-green-300 text-black  font-bold h-[9vh] w-[15vw] ">
-                    Afficher Les Employés
-                </button>
-                <!-- <div id="listeEmployes" class="mt-4 grid gap-4"></div> -->
+            <div class="">
+                <div class="flex flex-col items-center gap-2  h-29">
+                    <button id="btnAfficher" type="button"
+                        class="bg-blue-500 rounded-lg hover:bg-blue-300 text-black  font-bold h-[8vh] w-full">
+                        Ajouter Un Employé
+                    </button>
+                    <button id="btnEmploye"
+                        class="bg-green-500 rounded-lg hover:bg-green-300 text-black  font-bold h-[8vh] w-full">
+                        Afficher Les Employés
+                    </button>
+                </div>
+                <h1 class="text-center text-xl font-bold mt-4">Unsigned Staff</h1>
                 <div id="employeesList"></div>
                 <div id="profileModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                     <div class="bg-white p-5 rounded-xl w-[400px] relative">
                         <div id="profileContent"></div>
                     </div>
                 </div>
+                
             </div>
 
             <div id="modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
