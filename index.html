@@ -30,7 +30,7 @@
                         <div id="profileContent"></div>
                     </div>
                 </div>
-                
+
             </div>
 
             <div id="modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
@@ -116,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <section class=" PlanSection border-2 w-[80%] h-screen">
+        <!-- <section class=" PlanSection border-2 w-[80%] h-screen">
             <div class="parent h-full">
                 <div class="salleConference border-2"> Salle de Conférence</div>
                 <div class="reception ">Réception</div>
@@ -130,7 +130,55 @@
                 <div class="empty4"></div>
                 <div class="empty5"></div>
             </div>
+        </section> -->
+        <section class="PlanSection border-2 w-[80%] h-screen">
+            <div class="parent h-full">
+
+                <div class="salleConference border-2 room" data-room="conference">
+                    <p class="font-bold">Salle de Conférence</p>
+                    <div class="room-employees"></div>
+                    <button class="addToRoom bg-blue-500 text-white px-2 py-1 rounded mt-1">+</button>
+                </div>
+
+                <div class="reception room" data-room="reception">
+                    <p class="font-bold">Réception</p>
+                    <div class="room-employees"></div>
+                    <button class="addToRoom bg-blue-500 text-white px-2 py-1 rounded mt-1">+</button>
+                </div>
+
+                <div class="salleServeurs room" data-room="servers">
+                    <p class="font-bold">Salle de Serveurs</p>
+                    <div class="room-employees"></div>
+                    <button class="addToRoom bg-blue-500 text-white px-2 py-1 rounded mt-1">+</button>
+                </div>
+
+                <div class="salleSecurite room" data-room="security">
+                    <p class="font-bold">Salle de Sécurité</p>
+                    <div class="room-employees"></div>
+                    <button class="addToRoom bg-blue-500 text-white px-2 py-1 rounded mt-1">+</button>
+                </div>
+
+                <div class="sallePersonnel room" data-room="staffroom">
+                    <p class="font-bold">Salle de Personnel</p>
+                    <div class="room-employees"></div>
+                    <button class="addToRoom bg-blue-500 text-white px-2 py-1 rounded mt-1">+</button>
+                </div>
+
+                <div class="salleArchive room" data-room="archive">
+                    <p class="font-bold">Salle d'Archive</p>
+                    <div class="room-employees"></div>
+                    <button class="addToRoom bg-blue-500 text-white px-2 py-1 rounded mt-1">+</button>
+                </div>
+
+                <div class="empty1"></div>
+                <div class="empty2"></div>
+                <div class="empty3"></div>
+                <div class="empty4"></div>
+                <div class="empty5"></div>
+
+            </div>
         </section>
+
     </main>
     <script src="script.js" defer></script>
 </body>
