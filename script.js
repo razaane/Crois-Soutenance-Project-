@@ -11,15 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const form = document.getElementById("formulaire");
 
-    // Load employees
     let employees = JSON.parse(localStorage.getItem("employees")) || [];
 
-    // --- OPEN / CLOSE MODAL ---
     btnAfficher.addEventListener("click", () => modal.classList.remove("hidden"));
     closeModal.addEventListener("click", () => modal.classList.add("hidden"));
 
 
-    // -------- PHOTO PREVIEW --------
     photoUrlInput.addEventListener("input", () => {
         const url = photoUrlInput.value.trim();
 
@@ -35,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // -------- AJOUTER EXPERIENCES --------
     container.addEventListener("click", (e) => {
         if (!e.target.classList.contains("btn-add")) return;
 
@@ -51,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // -------- AJOUT EMPLOYÉ --------
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -79,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // -------- AFFICHAGE EMPLOYÉS --------
     function affichageEmployees() {
         const btnAfficherEmployees = document.getElementById("btnEmploye");
         const liste = document.getElementById("employeesList");
@@ -109,5 +104,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     affichageEmployees();
-
+    
 });
