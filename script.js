@@ -40,21 +40,48 @@ btnExp.addEventListener("click" , (e) => {
     box.innerHTML =`
                 <div class="flex flex-col w-[100%] font-semibold">
                     <label for="exper">Votre Experience :</label>
-                    <input type="text" id="exper" placeholder="Entrer votre Expérience" class="lanceexpere border border-black p-1 rounded-md">
+                    <input type="text" id="exper" placeholder="Entrer votre Expérience" class="descrexper border border-black p-1 rounded-md">
                 </div>
 
                 <div class="flex flex-col w-[100%] font-semibold">
                     <label for="debut">Début :</label>
-                    <input type="date" id="debut" placeholder="le début d'expérience" class="lanceexpere border border-black p-1 rounded-md">
+                    <input type="date" id="debut" placeholder="le début d'expérience" class="debutexper border border-black p-1 rounded-md">
                 </div>
 
                 <div class="flex flex-col w-[100%] font-semibold">
                     <label for="fin">Fin :</label>
-                    <input type="date" id="fin" placeholder="la fin d'expérience" class="finexpere border border-black p-1 rounded-md">
+                    <input type="date" id="fin" placeholder="la fin d'expérience" class="finexper border border-black p-1 rounded-md">
                 </div>
     `
     formulaire.insertBefore(box,btnExp.parentElement);
 })
+
+btnSubmit.addEventListener("click" , (e) =>{
+    e.preventDefault();
+    let worker = {
+        workerPhoto : photo.value ,
+        workerName : fullName.value ,
+        workerAge : age.value ,
+        workerTel : tel.value ,
+        workerEmail : email.value ,
+        workerEperience : allExperience
+    }
+    let allExperience = [];
+    const descrexper = document.querySelectorAll(".descrexper");
+    const debutexper = document.querySelectorAll(".debutexper");
+    const finexper = document.querySelectorAll(".finexper");
+    descrexper.forEach((e,index)=>{
+        exp = {
+            description : e[index].value,
+            debut : debutexper[index].value,
+            fin : finexper[index].value
+        }
+        allExperience.push(exp);
+    })
+    
+} )
+
+
 
 
 
