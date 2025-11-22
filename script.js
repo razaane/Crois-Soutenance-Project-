@@ -30,6 +30,7 @@ let SalleServeurs = JSON.parse(localStorage.getItem("SalleServeurs")) || [];
 let SalleSécurités = JSON.parse(localStorage.getItem("SalleSécurités")) || [];
 let SallePersonnels = JSON.parse(localStorage.getItem("SallePersonnels")) || [];
 let SalleArchives = JSON.parse(localStorage.getItem("SalleArchives")) || [];
+let SalleRéceptions = JSON.parse(localStorage.getItem("SalleRéceptions")) || [];
 AfficherWorkers();
 
 
@@ -40,6 +41,7 @@ function saveAll() {
     localStorage.setItem("SalleSécurités", JSON.stringify(SalleSécurités));
     localStorage.setItem("SallePersonnels", JSON.stringify(SallePersonnels));
     localStorage.setItem("SalleArchives", JSON.stringify(SalleArchives));
+    localStorage.setItem("SalleRéceptions", JSON.stringify(SalleRéceptions));
 }
 
 
@@ -86,6 +88,7 @@ btnSubmit.addEventListener("click", (e) => {
         allExperience.push(exp);
     })
     let worker = {
+        id: Date.now(),
         workerPhoto: photo.value,
         workerName: fullName.value,
         workerAge: age.value,
@@ -95,7 +98,7 @@ btnSubmit.addEventListener("click", (e) => {
         workerEperience: allExperience
     }
     workers.push(worker);
-    localStorage.setItem("workers", JSON.stringify(workers));
+    saveAll();
     console.log(workers);
     alert("Votre Employé à été ajouter avec succés!");
     formulaire.classList.add("hidden");
@@ -150,38 +153,41 @@ function AfficherWorkersInfo(index) {
     const closeinfo = bigBox.querySelector('.closeinfo');
     closeinfo.addEventListener('click', (e) => {
         e.preventDefault();
-        bigBox.classList.add("hidden");
+        bigBox.remove();
 
     })
 }
 
-const buttons = document.getElementsByClassName(".salle-btn");
+// const buttons = document.getElementsByClassName(".salle-btn");
 
-const accessRules = {
-    recep: ["Récéptioniste", "Manager", "Nettoyage"],
-    sec: ["Agents Sécurités", "Manager", "Nettoyage"],
-    serv: ["Nettoyage", "Manager", "Théchniciens IT"],
-    arc: ["Manager"]
-};
+// const accessRules = {
+//     recep: ["Récéptioniste", "Manager", "Nettoyage"],
+//     sec: ["Agents Sécurités", "Manager", "Nettoyage"],
+//     serv: ["Nettoyage", "Manager", "Théchniciens IT"],
+//     arc: ["Manager"]
+// };
 
-buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const salleName = btn.dataset.salle;
-        const allowedRoles = accessRules[salleName];
 
-        const salleDiv = document.getElementById(salleName);
-        salleDiv.innerHTML = "";
 
-        workers.forEach(emp => {
-            const role = emp.dataset.role;
 
-            if (allowedRoles.includes(role)) {
-                const clone = emp.cloneNode(true);
-                salleDiv.appendChild(clone);
-            }
-        });
-    })
-})
+// buttons.forEach(btn => {
+//     btn.addEventListener("click", () => {
+//         const salleName = btn.dataset.salle;
+//         const allowedRoles = accessRules[salleName];
+
+//         const salleDiv = document.getElementById(salleName);
+//         salleDiv.innerHTML = "";
+
+//         workers.forEach(emp => {
+//             const role = emp.dataset.role;
+
+//             if (allowedRoles.includes(role)) {
+//                 const clone = emp.cloneNode(true);
+//                 salleDiv.appendChild(clone);
+//             }
+//         });
+//     })
+// })
 
 const btnConf = document.querySelector("#btnConf");
 const btnRécp = document.querySelector("#btnRécp");
@@ -190,85 +196,256 @@ const btnServ = document.querySelector("#btnServ");
 const btnPers = document.querySelector("#btnPers");
 const btnArc = document.querySelector("#btnArc");
 
-function moveToSalle(salleName) {
-    let allowed = roles[salleName];
-    let target;
 
-    if (salleName === "recep") {
-        target = SalleRéceptions;
-    };
-    if (salleName === "sec") {
-        target = SalleSécurités;
-    };
-    if (salleName === "serv") {
-        target = SalleServeurs;
-    };
-    if (salleName === "arc") {
-        target = SalleArchives;
-    };
+// drna hna event ela kola btn ykhadm lina function dyl lfiltrage 
+btnConf.addEventListener('click',()=>{
+   filtrage("SalleConférence"); 
+})
+btnRécp.addEventListener('click',()=>{
+   filtrage("SalleRéception"); 
+})
+btnSécu.addEventListener('click',()=>{
+   filtrage("SalleSécurité"); 
+})
+btnServ.addEventListener('click',()=>{
+   filtrage("SalleServeur"); 
+})
+btnPers.addEventListener('click',()=>{
+   filtrage("SallePersonnel"); 
+})
+btnArc.addEventListener('click',()=>{
+   filtrage("SalleArchive"); 
+})
 
-    let newWorkers = [];
 
-    workers.forEach(w => {
-        if (allowed.includes(w.role)) {
-            target.push(w);
-        } else {
-            newWorkers.push(w);
+// had function katfiltri liya kola wa7d ela 7sab role dyalo  o kan9arnoh mea id dyl la salle 
+
+function filtrage(room) {
+    let  filtrwrk = workers.filter((e)=> {
+        if(room === "SalleSécurité"){
+            return e.workerrole === "Agents Sécurités" ||  e.workerrole ===  "Nettoyage"
         }
+        if(room === "SalleRéception"){
+            return e.workerrole === "Récéptioniste" || e.workerrole === "Nettoyage" || e.workerrole === "Manager" || e.workerrole === "Autres rôles" || e.workerrole === "Théchniciens IT" || e.workerrole === "Agents Sécurités"
+        }
+        if(room === 'SalleConférence'){
+            return e.workerrole === "Nettoyage" || e.workerrole === "Manager" || e.workerrole === "Théchniciens IT"
+        }
+        if(room === "SallePersonnel"){
+            return e.workerrole === "Récéptioniste" || e.workerrole === "Nettoyage" || e.workerrole === "Manager" || e.workerrole === "Théchniciens IT" || e.workerrole ==="Agents Sécurités"
+        }
+        if(room === "SalleArchive"){
+            return e.workerrole === "Manager"
+        }
+        if(room === "SalleServeur"){
+            return e.workerrole === "Nettoyage" || e.workerrole === "Manager" || e.workerrole === "Théchniciens IT"
+        }
+    })
+
+    console.log(filtrwrk);
+    
+
+    const box = document.createElement("div"); // hna knsawbo modal li ghadi n7oto fiha kola carta dyl l workers 
+    box.className = "absolute bg-white w-[90%] h-[63vh] rounded-md flex flex-col items-center gap-2 m-4 sm:w-[40%]";
+    box.innerHTML = `
+        <button class="fermer absolute top-1 right-1 bg-red-600 w-fit text-white px-3 py-1 rounded-lg text-[12px] hover:bg-red-700 transition">X</button>
+    `
+    const fermer = box.querySelector('.fermer');
+    fermer.addEventListener('click', () => {
+        box.remove();
     });
-
-    workers = newWorkers;
-
-    saveAll();
-    AfficherWorkers();
-    showSalle(salleName);
-
+    filtrwrk.forEach((index)=>{   // hna knjibo hadak array li filtrina fih o kanbiyno hadachi li fih matalan ila filtrina ela server hadak array kywali 3amr bi nas li endhom l7a9 ydokhlo lserver  o kabynohom hna kola wa7d fi carda kndiro foreach
+        let worker = document.createElement("div")
+        worker.id = index.id;
+        worker.innerHTML = `
+        <div class="flex bg-purple-500 justify-center items-center w-[260px] ">
+        <div class="w-[50%] flex flex-col justify-center items-center">
+        <h2 class="text-center text-[17px] font-bold">${index.workerName}</h2>
+         <p> ${index.workerrole}</p></div>
+         <div class="w-[50%]">
+         <button class="ajouterdans bg-red-600 text-white px-3 py-2 h-[40px] rounded-lg text-[12px] hover:bg-red-700 transition">ajouter</button>
+        </div>
+        </div>
+        `; 
+        box.appendChild(worker);
+        const ajo = box.querySelector('.ajouterdans');
+        ajo.addEventListener('click',()=>{
+            ajouterdanslasalle(index,room);
+            box.remove();
+        })
+    })
+    parent.appendChild(box);
 }
 
-function renderSalle(salleName) {
-    const allowedRoles = accessRules[salleName];
-    const salleDiv = document.getElementById(salleName);
 
-    salleDiv.innerHTML = ""; 
+// had lfuncton dyl knpushiw fi array dyl kola salle hadok nas li bghina n7oto drna lihom ajouter 
+function ajouterdanslasalle(index,room){
+    if(room === "SalleSécurité"){
+        SalleSécurités.push(index);
+    }
+    if(room === "SalleRéception"){
+        SalleRéceptions.push(index);  
+    }
+    if(room === 'SalleConférence'){
+        SalleConférences.push(index);
+    }
+    if(room === "SallePersonnel"){
+        SallePersonnels.push(index);
+    }
+    if(room === "SalleArchive"){
+        SalleArchives.push(index);
+    }
+    if(room === "SalleServeur"){
+        SalleServeurs.push(index);
+    }
+    let deleteIndex = workers.findIndex(u => u.id === index.id)
+    workers.splice(deleteIndex,1); // hna knsms7ohom mn al array lwl 
+    saveAll(); // o kn9ado 3awtani local storage 
+    renderroom(room);
+    AfficherWorkers(); // kn3yto eliha 3awtani bach tbyn lina chkon li b9a fi array dyl lworkers
+}
 
-    workers.forEach(emp => {
-        if (allowedRoles.includes(emp.workerrole)) {
-            const card = document.createElement("div");
-            card.className = "bg-blue-200 p-2 rounded-md flex items-center gap-3 w-full";
+// had lfunction dyl bach nbynohom fi blayshom wa7d bi wa7d o knswbo lihom card dylhom 
 
-            card.innerHTML = `
-                <img src="${emp.workerPhoto}" class="w-12 h-12 rounded-full">
-                <div>
-                    <p class="font-bold">${emp.workerName}</p>
-                    <p class="text-sm">${emp.workerrole}</p>
-                </div>
-            `;
+function renderroom(room) {
 
-            salleDiv.appendChild(card);
-        }
+    let arr;
+    let salle = document.querySelector(`#${room}`)
+
+    if(room === "SalleSécurité"){
+        arr = SalleSécurités;
+    }
+    if(room === "SalleRéception"){  
+        arr = SalleRéceptions;
+    }
+    if(room === 'SalleConférence'){
+        arr = SalleConférences;
+    }
+    if(room === "SallePersonnel"){
+        arr = SallePersonnels;
+    }
+    if(room === "SalleArchive"){
+        arr = SalleArchives;
+    }
+    if(room === "SalleServeur"){
+        arr = SalleServeurs;
+    }
+    salle.innerHTML = '';
+    
+    arr.forEach((index) => {
+
+        const card = document.createElement('div');
+        card.className = "flex justify-evenly items-center w-full h-[40px] bg-white/80 backdrop-blur-sm shadow-md border border-gray-300 rounded-xl hover:shadow-lg transition duration-200";
+        card.innerHTML = `
+            <button class="infoinplace">
+                <h2 class="text-center w-[50%] text-[12px] font-bold">${index.workerName}</h2>
+            </button>
+            <button class="deleteinplace bg-red-600 w-fit text-white px-3 py-1 rounded-lg text-[12px] hover:bg-red-700 transition">X</button>
+        `;
+
+        const infoinplace = card.querySelector('.infoinplace');
+        infoinplace.addEventListener('click', () => {
+            AfficherWorkersInfo(index);
+        });
+
+        const deleteinplace = card.querySelector('.deleteinplace');
+        deleteinplace.addEventListener('click', () => {
+            let deleteIndex = arr.findIndex(u => u.id === index.id)
+            let deletedUser = arr.splice(deleteIndex,1);
+            workers.push(deletedUser[0]);
+            saveAll();
+            renderroom(room);
+            AfficherWorkers();
+        });
+        salle.appendChild(card);
     });
 }
 
+// function moveToSalle(salleName) {
+//     let allowed = roles[salleName];
+//     let target;
 
-document.getElementById("btnRecep").addEventListener("click", () => {
-    moveToSalle("recep");
-});
+//     if (salleName === "recep") {
+//         target = SalleRéceptions;
+//     };
+//     if (salleName === "sec") {
+//         target = SalleSécurités;
+//     };
+//     if (salleName === "serv") {
+//         target = SalleServeurs;
+//     };
+//     if (salleName === "arc") {
+//         target = SalleArchives;
+//     };
 
-document.getElementById("btnSec").addEventListener("click", () => {
-    moveToSalle("sec");
-});
+//     let newWorkers = [];
 
-document.getElementById("btnServ").addEventListener("click", () => {
-    moveToSalle("serv");
-});
+//     workers.forEach(w => {
+//         if (allowed.includes(w.role)) {
+//             target.push(w);
+//         } else {
+//             newWorkers.push(w);
+//         }
+//     });
 
-document.getElementById("btnArc").addEventListener("click", () => {
-    moveToSalle("arc");
-});
+//     workers = newWorkers;
+
+//     saveAll();
+//     AfficherWorkers();
+//     showSalle(salleName);
+
+// }
+
+// function renderSalle(salleName) {
+//     const allowedRoles = accessRules[salleName];
+//     const salleDiv = document.getElementById(salleName);
+
+//     salleDiv.innerHTML = ""; 
+
+//     workers.forEach(emp => {
+//         if (allowedRoles.includes(emp.workerrole)) {
+//             const card = document.createElement("div");
+//             card.className = "bg-blue-200 p-2 rounded-md flex items-center gap-3 w-full";
+
+//             card.innerHTML = `
+//                 <img src="${emp.workerPhoto}" class="w-12 h-12 rounded-full">
+//                 <div>
+//                     <p class="font-bold">${emp.workerName}</p>
+//                     <p class="text-sm">${emp.workerrole}</p>
+//                 </div>
+//             `;
+
+//             salleDiv.appendChild(card);
+//         }
+//     });
+// }
+
+
+// document.getElementById("btnRecep").addEventListener("click", () => {
+//     moveToSalle("recep");
+// });
+
+// document.getElementById("btnSec").addEventListener("click", () => {
+//     moveToSalle("sec");
+// });
+
+// document.getElementById("btnServ").addEventListener("click", () => {
+//     moveToSalle("serv");
+// });
+
+// document.getElementById("btnArc").addEventListener("click", () => {
+//     moveToSalle("arc");
+// });
 
 
 
 AfficherWorkers();
+renderroom("SalleSécurité");
+renderroom("SalleRéception");
+renderroom("SalleConférence");
+renderroom("SallePersonnel");
+renderroom("SalleArchive");
+renderroom("SalleServeur");
 
 
 

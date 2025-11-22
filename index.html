@@ -21,35 +21,41 @@
         </div>
         <div class="w-[90%]">
             <div class="grid grid-cols-3 grid-rows-3 h-screen gap-2">
-                <div class=" salle grid col-span-2 row-span-1 rounded-lg bg-purple-300" id="SalleConférence">
-                     <button id="btnConf" data-salle="conf" class="salle-btn h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
+                <div class="col-span-2 row-span-1 rounded-lg bg-purple-300" >
+                     <button id="btnConf" data-salle="conf" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
                         +
                     </button>
+                    <div id="SalleConférence" class="flex flex-col gap-y-1"></div>
                 </div>
-                <div id="btnRécp" class=" salle grid col-span-1 row-span-2 rounded-lg bg-purple-400" id="SalleRéception">
-                    <button data-salle="récep" class="salle-btn h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
+                <div  class="col-span-1 row-span-2 rounded-lg bg-purple-400" >
+                    <button id="btnRécp" data-salle="récep" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
                         +
                     </button>
+                    <div id="SalleRéception" class="flex flex-col gap-y-1"></div>
                 </div>
-                <div id="btnServ" class="salle grid col-span-1 row-span-1 rounded-lg bg-purple-500" id="SalleServeur">
-                    <button data-salle="serv" class="salle-btn h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
+                <div  class="col-span-1 row-span-1 rounded-lg bg-purple-500" >
+                    <button id="btnServ" data-salle="serv" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
                         +
                     </button>
+                    <div id="SalleServeur" class="flex flex-col gap-y-1"></div>
                 </div>
-                <div id="btnSécu" class="salle grid col-span-1 row-span-1 rounded-lg bg-purple-600" id="SalleSécurité">
-                     <button data-salle="séc" class="salle-btn h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
+                <div  class="col-span-1 row-span-1 rounded-lg bg-purple-600" >
+                     <button id="btnSécu" data-salle="séc" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
                         +
                     </button>
+                    <div id="SalleSécurité" class="flex flex-col gap-y-1"></div>
                 </div>
-                <div id="btnPers" class="salle grid col-span-1 row-span-1 rounded-lg bg-purple-700" id="SallePersonnel">
-                     <button data-salle="pers" class="salle-btn h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
+                <div  class="col-span-1 row-span-1 rounded-lg bg-purple-700" >
+                     <button id="btnPers" data-salle="pers" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
                         +
                     </button>
+                    <div id="SallePersonnel" class="flex flex-col gap-y-1"></div>
                 </div>
-                <div id="btnArc" class="salle grid col-span-2 row-span-1 rounded-lg bg-purple-800" id="SalleArchive">
-                     <button data-salle="arch" class="salle-btn h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
+                <div  class="col-span-2 row-span-1 rounded-lg bg-purple-800" >
+                     <button id="btnArc" data-salle="arch" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
                         +
                     </button>
+                    <div id="SalleArchive" class="flex flex-col gap-y-1"></div>
                 </div>
             </div>
         </div>
@@ -79,8 +85,8 @@
                     <input type="tel" id="tel" placeholder="Entrer votre numéro de téléphone" class=" border border-black p-1 rounded-md">
                 </div>
 
-                <select name="role" id="roles" class="w-[90%] border border-black p-1 rounded-md font-semibold">
-                    <option>Choisis un role</option>
+                <select name="role" id="roles" class="w-[90%] border border-black p-1 rounded-md font-semibold" required>
+                    <option value="">Choisis un role</option>
                     <option value="Récéptioniste">Récéptioniste</option>
                     <option value="Théchniciens IT">Théchniciens IT</option>
                     <option value="Agents Sécurités">Agents Sécurités</option>
