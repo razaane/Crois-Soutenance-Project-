@@ -21,6 +21,13 @@ const btnExp = document.querySelector("#btnExp");
 const btnSubmit = document.querySelector("#btnSubmit");
 
 
+let nomRegex = /^[A-Za-z\s]+$/;
+let ageRegex = /^(1[0-9]|[2-9][0-9])$/;
+let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+let telRegex = /^[0-9]{10}$/;
+let roleRegex = /^(Manager|Nettoyage|Techniciens IT|Agents de sécurité|Réceptionnistes|Autres rôles)$/;
+
+
 
 
 let workers = JSON.parse(localStorage.getItem("workers")) || [];
@@ -74,6 +81,30 @@ btnExp.addEventListener("click", (e) => {
 })
 
 btnSubmit.addEventListener("click", (e) => {
+    if (!nomRegex.test(fullName.value)) {
+    alert("Name invalid");
+    return;
+  }
+
+  if (!ageRegex.test(age.value)) {
+    alert("Age invalid");
+    return;
+  }
+
+  if (!emailRegex.test(email.value)) {
+    alert("Email invalid");
+    return;
+  }
+
+  if (!telRegex.test(tel.value)) {
+    alert("Phone invalid");
+    return;
+  }
+
+  if (!roleRegex.test(roles.value)) {
+    alert("Role invalid");
+    return;
+  }
     e.preventDefault();
     let allExperience = [];
     const descrexper = document.querySelectorAll(".descrexper");
@@ -112,7 +143,7 @@ function AfficherWorkers() {
 
     workers.forEach((oneWorker, index) => {
         const box = document.createElement("div");
-        box.className = "bg-purple-300 w-[100%] h-[65px] rounded-md flex justify-evenly";
+        box.className = "bg-purple-300  min-w-[70%] max-w-[50%] h-[65px] rounded-md flex justify-evenly";
 
         box.innerHTML = `
             <div class="w-[20%] h-[95%] p-2">
@@ -268,7 +299,7 @@ function filtrage(room) {
         </div>
         `; 
         box.appendChild(worker);
-        const ajo = box.querySelector('.ajouterdans');
+        const ajo = worker.querySelector('.ajouterdans');
         ajo.addEventListener('click',()=>{
             ajouterdanslasalle(index,room);
             box.remove();
@@ -335,7 +366,7 @@ function renderroom(room) {
     arr.forEach((index) => {
 
         const card = document.createElement('div');
-        card.className = "flex justify-evenly items-center w-full h-[40px] bg-white/80 backdrop-blur-sm shadow-md border border-gray-300 rounded-xl hover:shadow-lg transition duration-200";
+        card.className = "flex justify-evenly items-center  w-full h-[40px] bg-white/80 backdrop-blur-sm shadow-md border border-gray-300 rounded-xl hover:shadow-lg transition duration-200";
         card.innerHTML = `
             <button class="infoinplace">
                 <h2 class="text-center w-[50%] text-[12px] font-bold">${index.workerName}</h2>
