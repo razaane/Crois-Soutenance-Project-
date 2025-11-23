@@ -11,102 +11,142 @@
 
 <body>
     <div id="parent" class="relative flex flex-col gap-y-10 py-5 items-center ">
-        <div class="h-[450px] min-w-[90%] max-w-[50%] bg-gray-400 rounded-md py-2 flex flex-col gap-4 items-center">
-            <div class="w-[90%] bg-gray-600 h-[20%] rounded-md flex justify-center items-center ">
-                <button id="btnAdd" class="bg-blue-300 w-[75%] py-3 rounded-md">Ajouter</button>
-            </div>
-            <div class="h-[70%] bg-gray-800 w-[90%] flex flex-col p-2 gap-1 items-center rounded-md overflow-y-scroll"
-                id="displayAllWorkers">
-            </div>
+    
+    <div class="h-[450px] min-w-[90%] max-w-[50%] bg-pink-50 rounded-md py-2 flex flex-col gap-4 items-center shadow-lg">
+        <div class="w-[90%] bg-pink-200 h-[20%] rounded-md flex justify-center items-center shadow-inner">
+            <button id="btnAdd" class="bg-pink-400 hover:bg-pink-500 w-[75%] py-3 rounded-md text-white font-semibold transition"> Ajouter</button>
         </div>
-        <div class="w-[90%]">
-            <div class="grid grid-cols-3 grid-rows-3 h-screen gap-2">
-                <div class="col-span-2 row-span-1 rounded-lg bg-purple-300" >
-                     <button id="btnConf" data-salle="conf" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
-                        +
-                    </button>
-                    <div id="SalleConférence" class="flex flex-col gap-y-1"></div>
-                </div>
-                <div  class="col-span-1 row-span-2 rounded-lg bg-purple-400" >
-                    <button id="btnRécp" data-salle="récep" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
-                        +
-                    </button>
-                    <div id="SalleRéception" class="flex flex-col gap-y-1"></div>
-                </div>
-                <div  class="col-span-1 row-span-1 rounded-lg bg-purple-500" >
-                    <button id="btnServ" data-salle="serv" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
-                        +
-                    </button>
-                    <div id="SalleServeur" class="flex flex-col gap-y-1"></div>
-                </div>
-                <div  class="col-span-1 row-span-1 rounded-lg bg-purple-600" >
-                     <button id="btnSécu" data-salle="séc" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
-                        +
-                    </button>
-                    <div id="SalleSécurité" class="flex flex-col gap-y-1"></div>
-                </div>
-                <div  class="col-span-1 row-span-1 rounded-lg bg-purple-700" >
-                     <button id="btnPers" data-salle="pers" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
-                        +
-                    </button>
-                    <div id="SallePersonnel" class="flex flex-col gap-y-1"></div>
-                </div>
-                <div  class="col-span-2 row-span-1 rounded-lg bg-purple-800" >
-                     <button id="btnArc" data-salle="arch" class="h-[30px] bg-purple-900 w-[30px] rounded-md place-self-center">
-                        +
-                    </button>
-                    <div id="SalleArchive" class="flex flex-col gap-y-1"></div>
-                </div>
-            </div>
+        <div class="h-[70%] bg-pink-100 w-[90%] flex flex-col p-2 gap-2 items-center rounded-md overflow-y-scroll sm:flex-row sm:items-start">
+            <div id="displayAllWorkers" class="w-full flex flex-col gap-2 sm:flex-row sm:flex-wrap"></div>
         </div>
-        <!-- <div class=" w-full h-screen flex justify-center items-center"> -->
-            <form id="Formwrk" class="hidden absolute bg-white w-[90%] h-[83vh] rounded-md flex flex-col items-center gap-6 overflow-y-scroll">
-                <div class="flex flex-col w-[90%] font-semibold">
-                    <label for="photo">Votre URL photo :</label>
-                    <input type="text" id="photo" placeholder="img-url" class=" border border-black p-1 rounded-md">
-                </div>
-                <div class="flex flex-col w-[90%] font-semibold">
-                    <label for="name">Nom et Prénom :</label>
-                    <input type="text" id="fullName" placeholder="Entrer votre nom et prénom" class=" border border-black p-1 rounded-md">
-                </div>
-
-                <div class="flex flex-col w-[90%] font-semibold">
-                    <label for="age">Votre Age :</label>
-                    <input type="number" id="age" placeholder="Entrer votre age" class=" border border-black p-1 rounded-md">
-                </div>
-
-                <div class="flex flex-col w-[90%] font-semibold">
-                    <label for="email">Votre Adresse Mail :</label>
-                    <input type="email" id="email" placeholder="Entrer votre adresse email" class=" border border-black p-1 rounded-md">
-                </div>
-
-                <div class="flex flex-col w-[90%] font-semibold">
-                    <label for="tel">Votre Numéro Téléphone :</label>
-                    <input type="tel" id="tel" placeholder="Entrer votre numéro de téléphone" class=" border border-black p-1 rounded-md">
-                </div>
-
-                <select name="role" id="roles" class="w-[90%] border border-black p-1 rounded-md font-semibold" required>
-                    <option value="">Choisis un role</option>
-                    <option value="Récéptioniste">Récéptioniste</option>
-                    <option value="Théchniciens IT">Théchniciens IT</option>
-                    <option value="Agents Sécurités">Agents Sécurités</option>
-                    <option value="Manager">Manager</option>
-                    <option value="Nettoyage">Nettoyage</option>
-                    <option value="Autres roles">Autres roles</option>
-                </select>
-
-                <div id="btnsss" class="flex flex-col items-center justify-center gap-3">
-                    <button class="bg-blue-500 h-[30px] w-[300px] font-bold rounded-md" id="btnExp">
-                        Ajouter une expérience
-                    </button>
-                    <button class="bg-green-400 font-bold h-[30px] w-[300px] rounded-md" id="btnSubmit">
-                        Ajouter
-                    </button>
-                </div>
-
-            </form>
-        <!-- </div> -->
     </div>
+
+    
+    <div class="w-[90%] mx-auto mt-5">
+    <div class="grid grid-cols-3 grid-rows-3 h-screen gap-3">
+
+        
+        <div class="col-span-2 row-span-1 rounded-lg bg-pink-200 p-3 flex flex-col shadow-lg">
+            <div class="flex flex-col xs:flex-row items-center justify-between mb-2 gap-2">
+                <h5 class="font-bold text-lg xs:text-sm text-pink-700 truncate text-center xs:text-left">
+                   Conférence
+                </h5>
+                <button id="btnConf" data-salle="conf"
+                    class="w-10 h-10 xs:w-8 xs:h-8 bg-pink-400 text-white rounded-md hover:bg-pink-500 transition">+</button>
+            </div>
+            <div id="SalleConférence" class="flex flex-col gap-1 overflow-y-auto"></div>
+        </div>
+
+        <div class="col-span-1 row-span-2 rounded-lg bg-pink-300 p-3 flex flex-col shadow-lg">
+            <div class="flex flex-col xs:flex-row items-center justify-between mb-2 gap-2">
+                <h5 class="font-bold text-lg xs:text-sm text-pink-800 truncate text-center xs:text-left">
+                Archive
+                </h5>
+                <button id="btnArc" data-salle="arch"
+                    class="w-10 h-10 xs:w-8 xs:h-8 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition">+</button>
+            </div>
+            <div id="SalleArchive" class="flex flex-col gap-1 overflow-y-auto"></div>
+        </div>
+
+        
+        <div class="col-span-1 row-span-1 rounded-lg bg-pink-400 p-3 flex flex-col shadow-lg">
+            <div class="flex flex-col xs:flex-row items-center justify-between mb-2 gap-2">
+                <h5 class="font-bold text-lg xs:text-sm text-pink-700 truncate text-center xs:text-left">
+                Serveur
+                </h5>
+                <button id="btnServ" data-salle="serv"
+                    class="w-10 h-10 xs:w-8 xs:h-8 bg-pink-500 text-white rounded-md hover:bg-pink-600 transition">+</button>
+            </div>
+            <div id="SalleServeur" class="flex flex-col gap-1 overflow-y-auto"></div>
+        </div>
+
+        
+        <div class="col-span-1 row-span-1 rounded-lg bg-pink-500 p-3 flex flex-col shadow-lg">
+            <div class="flex flex-col xs:flex-row items-center justify-between mb-2 gap-2">
+                <h5 class="font-bold text-lg xs:text-sm text-pink-800 truncate text-center xs:text-left">
+                Sécurité
+                </h5>
+                <button id="btnSécu" data-salle="séc"
+                    class="w-10 h-10 xs:w-8 xs:h-8 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition">+</button>
+            </div>
+            <div id="SalleSécurité" class="flex flex-col gap-1 overflow-y-auto"></div>
+        </div>
+
+        
+        <div class="col-span-1 row-span-1 rounded-lg bg-pink-600 p-3 flex flex-col shadow-lg">
+            <div class="flex flex-col xs:flex-row items-center justify-between mb-2 gap-2">
+                <h5 class="font-bold text-lg xs:text-sm text-pink-900 truncate text-center xs:text-left">
+                Personnel
+                </h5>
+                <button id="btnPers" data-salle="pers"
+                    class="w-10 h-10 xs:w-8 xs:h-8 bg-pink-700 text-white rounded-md hover:bg-pink-800 transition">+</button>
+            </div>
+            <div id="SallePersonnel" class="flex flex-col gap-1 overflow-y-auto"></div>
+        </div>
+
+        
+        <div class="col-span-2 row-span-1 rounded-lg bg-pink-700 p-3 flex flex-col shadow-lg">
+            <div class="flex flex-col xs:flex-row items-center justify-between mb-2 gap-2">
+                <h5 class="font-bold text-lg xs:text-sm text-pink-900 truncate text-center xs:text-left">
+                Réception
+                </h5>
+                <button id="btnRécp" data-salle="récep"
+                    class="w-10 h-10 xs:w-8 xs:h-8 bg-pink-800 text-white rounded-md hover:bg-pink-900 transition">+</button>
+            </div>
+            <div id="SalleRéception" class="flex flex-col gap-1 overflow-y-auto"></div>
+        </div>
+
+    </div>
+</div>
+
+
+    <form id="Formwrk" class="hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+        bg-pink-50 w-[90%] max-w-[500px] h-[83vh] rounded-2xl flex flex-col items-center gap-6 
+        overflow-y-auto p-4 shadow-xl z-50">
+
+        <div class="flex flex-col w-[90%] font-semibold">
+            <label for="photo" class="text-pink-700 font-bold">Votre URL photo :</label>
+            <input type="text" id="photo" placeholder="img-url" class="border border-pink-300 p-1 rounded-md">
+        </div>
+
+        <div class="flex flex-col w-[90%] font-semibold">
+            <label for="name" class="text-pink-700 font-bold">Nom et Prénom :</label>
+            <input type="text" id="fullName" placeholder="Entrer votre nom et prénom" class="border border-pink-300 p-1 rounded-md">
+        </div>
+
+        <div class="flex flex-col w-[90%] font-semibold">
+            <label for="age" class="text-pink-700 font-bold">Votre Age :</label>
+            <input type="number" id="age" placeholder="Entrer votre age" class="border border-pink-300 p-1 rounded-md">
+        </div>
+
+        <div class="flex flex-col w-[90%] font-semibold">
+            <label for="email" class="text-pink-700 font-bold">Votre Adresse Mail :</label>
+            <input type="email" id="email" placeholder="Entrer votre adresse email" class="border border-pink-300 p-1 rounded-md">
+        </div>
+
+        <div class="flex flex-col w-[90%] font-semibold">
+            <label for="tel" class="text-pink-700 font-bold">Votre Numéro Téléphone :</label>
+            <input type="tel" id="tel" placeholder="Entrer votre numéro de téléphone" class="border border-pink-300 p-1 rounded-md">
+        </div>
+
+        <select name="role" id="roles" class="w-[90%] border border-pink-300 p-1 rounded-md font-semibold" required>
+            <option value="">Choisis un role</option>
+            <option value="Récéptioniste">Récéptioniste</option>
+            <option value="Théchniciens IT">Théchniciens IT</option>
+            <option value="Agents Sécurités">Agents Sécurités</option>
+            <option value="Manager">Manager</option>
+            <option value="Nettoyage">Nettoyage</option>
+        </select>
+
+        <div id="btnsss" class="flex flex-col items-center justify-center gap-5">
+            <button class="bg-pink-400 hover:bg-pink-500 h-[30px] w-[300px] font-bold rounded-md" id="btnExp">Ajouter une expérience</button>
+            <button class="bg-green-400 hover:bg-green-500 font-bold h-[30px] w-[300px] rounded-md" id="btnSubmit">Ajouter</button>
+            <button id="fermerleajouter" class="h-[30px] w-[300px] bg-red-400 text-white rounded-md hover:bg-red-500 transition">Fermer</button>
+        </div>
+
+    </form>
+</div>
+
     <script src="script.js"></script>
 </body>
 
