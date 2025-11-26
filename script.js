@@ -215,7 +215,7 @@ function AfficherWorkersInfo(index , array) {
             divExp.style.background = 'pink';
             divExp.classList.add('rounded-lg', 'mb-2', 'p-2')
             divExp.innerHTML = `
-                        <p class="text-sm text-pink-500">${exp.description}</p>
+                        <p class="text-sm text-pink-700">${exp.description}</p>
                         <p class="text-sm text-pink-500">${exp.debut}</p>
                         <p class="text-sm text-pink-500">${exp.fin}</p>
                     `
