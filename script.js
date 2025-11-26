@@ -41,7 +41,7 @@ let SallePersonnels = JSON.parse(localStorage.getItem("SallePersonnels")) || [];
 let SalleArchives = JSON.parse(localStorage.getItem("SalleArchives")) || [];
 let SalleRéceptions = JSON.parse(localStorage.getItem("SalleRéceptions")) || [];
 AfficherWorkers();
-
+let id = 0;
 
 function saveAll() {
     localStorage.setItem("workers", JSON.stringify(workers));
@@ -59,7 +59,7 @@ ajouterNewWorker.addEventListener("click", (e) => {
     formulaire.classList.remove("hidden");
 })
 
-fermerleajouter.addEventListener('click',()=>{
+fermerleajouter.addEventListener('click', (e) => {
     formulaire.classList.add("hidden");
     e.preventDefault();
     formulaire.reset();
@@ -95,24 +95,24 @@ btnExp.addEventListener("click", (e) => {
 btnSubmit.addEventListener("click", (e) => {
     e.preventDefault();
     if (!nomRegex.test(fullName.value)) {
-    alert("Name invalid");
-    return;
-  }
+        alert("Name invalid");
+        return;
+    }
 
-  if (!ageRegex.test(age.value)) {
-    alert("Age invalid");
-    return;
-  }
+    if (!ageRegex.test(age.value)) {
+        alert("Age invalid");
+        return;
+    }
 
-  if (!emailRegex.test(email.value)) {
-    alert("Email invalid");
-    return;
-  }
+    if (!emailRegex.test(email.value)) {
+        alert("Email invalid");
+        return;
+    }
 
-  if (!telRegex.test(tel.value)) {
-    alert("Phone invalid");
-    return;
-  }
+    if (!telRegex.test(tel.value)) {
+        alert("Phone invalid");
+        return;
+    }
     let allExperience = [];
     const descrexper = document.querySelectorAll(".descrexper");
     const debutexper = document.querySelectorAll(".debutexper");
@@ -125,8 +125,9 @@ btnSubmit.addEventListener("click", (e) => {
         }
         allExperience.push(exp);
     })
+    id++;
     let worker = {
-        id: Date.now(),
+        id: id,
         workerPhoto: photo.value,
         workerName: fullName.value,
         workerAge: age.value,
@@ -146,7 +147,7 @@ btnSubmit.addEventListener("click", (e) => {
 })
 
 function AfficherWorkers() {
-    display.innerHTML = "";  
+    display.innerHTML = "";
 
     workers.forEach((oneWorker, index) => {
         const box = document.createElement("div");
@@ -171,24 +172,24 @@ function AfficherWorkers() {
         const infoWorker = box.querySelector(".infoWorker");
         infoWorker.addEventListener("click", (e) => {
             e.preventDefault();
-            AfficherWorkersInfo(index);
+            AfficherWorkersInfo(index , workers);
         });
     });
 }
 
 
 const parent = document.querySelector("#parent");
-function AfficherWorkersInfo(index) {
-    const worker = workers[index];
-
+function AfficherWorkersInfo(index , array) {
+    const worker = array[index];
+    console.log(worker);
     const modal = document.createElement("div");
     modal.id = "modalInfo";
     modal.className = `
-        fixed inset-0 bg-black/40 flex items-center justify-center z-50
+        fixed inset-0 bg-black/40 flex items-center justify-center z-50 flex-col 
     `;
 
     modal.innerHTML = `
-        <div class="bg-pink-50 w-[90%] max-w-md rounded-2xl p-5 shadow-xl relative overflow-hidden">
+        <div class="bg-pink-50 w-[90%] max-w-md rounded-2xl p-5 shadow-xl relative modaldiv">
             <div class="flex justify-center">
                 <img src="${worker.workerPhoto}" alt="${worker.workerName}" 
                      class="w-32 h-32 rounded-full border-4 border-pink-300 object-cover">
@@ -207,6 +208,20 @@ function AfficherWorkersInfo(index) {
     `;
 
     document.body.appendChild(modal);
+    const modaldiv = document.querySelector('.modaldiv');
+    if (worker.workerEperience.length > 0) {
+        worker.workerEperience.forEach(exp => {
+            let divExp = document.createElement("div")
+            divExp.style.background = 'pink';
+            divExp.classList.add('rounded-lg', 'mb-2', 'p-2')
+            divExp.innerHTML = `
+                        <p class="text-sm text-pink-500">${exp.description}</p>
+                        <p class="text-sm text-pink-500">${exp.debut}</p>
+                        <p class="text-sm text-pink-500">${exp.fin}</p>
+                    `
+            modaldiv.appendChild(divExp)
+        })
+    }
     modal.querySelector("#closeModalInfo").addEventListener("click", () => modal.remove());
     modal.addEventListener("click", e => {
         if (e.target.id === "modalInfo") modal.remove();
@@ -221,36 +236,36 @@ const btnServ = document.querySelector("#btnServ");
 const btnPers = document.querySelector("#btnPers");
 const btnArc = document.querySelector("#btnArc");
 
-btnConf.addEventListener('click',()=>{
-   filtrage("SalleConférence"); 
+btnConf.addEventListener('click', () => {
+    filtrage("SalleConférence");
 })
-btnRécp.addEventListener('click',()=>{
-   filtrage("SalleRéception"); 
+btnRécp.addEventListener('click', () => {
+    filtrage("SalleRéception");
 })
-btnSécu.addEventListener('click',()=>{
-   filtrage("SalleSécurité"); 
+btnSécu.addEventListener('click', () => {
+    filtrage("SalleSécurité");
 })
-btnServ.addEventListener('click',()=>{
-   filtrage("SalleServeur"); 
+btnServ.addEventListener('click', () => {
+    filtrage("SalleServeur");
 })
-btnPers.addEventListener('click',()=>{
-   filtrage("SallePersonnel"); 
+btnPers.addEventListener('click', () => {
+    filtrage("SallePersonnel");
 })
-btnArc.addEventListener('click',()=>{
-   filtrage("SalleArchive"); 
+btnArc.addEventListener('click', () => {
+    filtrage("SalleArchive");
 })
 
 function filtrage(room) {
     let filtrwrk = workers.filter((e) => {
-        if(room === "SalleSécurité") return e.workerrole === "Agents Sécurités" || e.workerrole === "Nettoyage";
-        if(room === "SalleRéception") return ["Récéptioniste", "Nettoyage", "Manager", "Autres rôles", "Théchniciens IT", "Agents Sécurités"].includes(e.workerrole);
-        if(room === "SalleConférence") return ["Nettoyage", "Manager", "Théchniciens IT"].includes(e.workerrole);
-        if(room === "SallePersonnel") return ["Récéptioniste", "Nettoyage", "Manager", "Théchniciens IT", "Agents Sécurités"].includes(e.workerrole);
-        if(room === "SalleArchive") return e.workerrole === "Manager";
-        if(room === "SalleServeur") return ["Nettoyage", "Manager", "Théchniciens IT"].includes(e.workerrole);
+        if (room === "SalleSécurité") return e.workerrole === "Agents Sécurités" || e.workerrole === "Nettoyage";
+        if (room === "SalleRéception") return ["Récéptioniste", "Nettoyage", "Manager", "Théchniciens IT", "Agents Sécurités"].includes(e.workerrole);
+        if (room === "SalleConférence") return ["Nettoyage", "Manager", "Théchniciens IT"].includes(e.workerrole);
+        if (room === "SallePersonnel") return ["Récéptioniste", "Nettoyage", "Manager", "Théchniciens IT", "Agents Sécurités"].includes(e.workerrole);
+        if (room === "SalleArchive") return e.workerrole === "Manager";
+        if (room === "SalleServeur") return ["Nettoyage", "Manager", "Théchniciens IT"].includes(e.workerrole);
     });
 
-    
+
     const box = document.createElement("div");
     box.className = `
         fixed inset-0 flex items-center justify-center z-50
@@ -277,7 +292,7 @@ function filtrage(room) {
                 <img src="${index.workerPhoto}" alt="${index.workerName}" class="w-16 h-16 rounded-full border-2 border-pink-300 object-cover">
                 <div class="flex flex-col">
                     <h2 class="text-lg font-bold text-pink-700">${index.workerName}</h2>
-                    <p class="text-sm text-pink-500">${index.workerrole}</p>
+                    <p class="text-sm text-pink-500">${index.workerrole}</p>    
                 </div>
             </div>
             <div class="w-full sm:w-[30%] flex justify-center mt-2 sm:mt-0">
@@ -298,30 +313,30 @@ function filtrage(room) {
     parent.appendChild(box);
 }
 
-function ajouterdanslasalle(index,room){
-    if(room === "SalleSécurité"){
+function ajouterdanslasalle(index, room) {
+    if (room === "SalleSécurité") {
         SalleSécurités.push(index);
     }
-    if(room === "SalleRéception"){
-        SalleRéceptions.push(index);  
+    if (room === "SalleRéception") {
+        SalleRéceptions.push(index);
     }
-    if(room === 'SalleConférence'){
+    if (room === 'SalleConférence') {
         SalleConférences.push(index);
     }
-    if(room === "SallePersonnel"){
+    if (room === "SallePersonnel") {
         SallePersonnels.push(index);
     }
-    if(room === "SalleArchive"){
+    if (room === "SalleArchive") {
         SalleArchives.push(index);
     }
-    if(room === "SalleServeur"){
+    if (room === "SalleServeur") {
         SalleServeurs.push(index);
     }
     let deleteIndex = workers.findIndex(u => u.id === index.id)
-    workers.splice(deleteIndex,1); 
-    saveAll(); 
+    workers.splice(deleteIndex, 1);
+    saveAll();
     renderroom(room);
-    AfficherWorkers(); 
+    AfficherWorkers();
 }
 
 
@@ -329,16 +344,16 @@ function renderroom(room) {
     let arr;
     let salle = document.querySelector(`#${room}`);
 
-    if(room === "SalleSécurité") arr = SalleSécurités;
-    if(room === "SalleRéception") arr = SalleRéceptions;
-    if(room === 'SalleConférence') arr = SalleConférences;
-    if(room === "SallePersonnel") arr = SallePersonnels;
-    if(room === "SalleArchive") arr = SalleArchives;
-    if(room === "SalleServeur") arr = SalleServeurs;
+    if (room === "SalleSécurité") arr = SalleSécurités;
+    if (room === "SalleRéception") arr = SalleRéceptions;
+    if (room === 'SalleConférence') arr = SalleConférences;
+    if (room === "SallePersonnel") arr = SallePersonnels;
+    if (room === "SalleArchive") arr = SalleArchives;
+    if (room === "SalleServeur") arr = SalleServeurs;
 
     salle.innerHTML = '';
 
-    arr.forEach((index) => {
+    arr.forEach((elm , i) => {
         const card = document.createElement('div');
         card.className = `
             flex flex-col sm:flex-row items-center justify-between 
@@ -348,11 +363,11 @@ function renderroom(room) {
         `
         card.innerHTML = `
             <div class="flex flex-col sm:flex-row items-center gap-3 w-full flex-wrap">
-                <img src="${index.workerPhoto}" alt="${index.workerName}" 
+                <img src="${elm.workerPhoto}" alt="${elm.workerName}" 
                      class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-pink-300 object-cover flex-shrink-0">
                 <div class="flex flex-col min-w-0">
-                    <h2 class="text-pink-700 font-bold text-sm sm:text-base truncate">${index.workerName}</h2>
-                    <p class="text-pink-500 text-xs sm:text-sm truncate">${index.workerrole}</p>
+                    <h2 class="text-pink-700 font-bold text-sm sm:text-base truncate">${elm.workerName}</h2>
+                    <p class="text-pink-500 text-xs sm:text-sm truncate">${elm.workerrole}</p>
                 </div>
             </div>
             <button class="deleteinplace bg-red-400 w-fit text-white px-3 py-1 rounded-lg text-[12px] hover:bg-red-500 transition mt-2 sm:mt-0 flex-shrink-0">X</button>
@@ -360,19 +375,18 @@ function renderroom(room) {
 
         const infoinplace = card.querySelector('div.flex.flex-col');
         infoinplace.addEventListener('click', () => {
-            AfficherWorkersInfo(index);
+            AfficherWorkersInfo(i , arr);
         });
 
         const deleteinplace = card.querySelector('.deleteinplace');
         deleteinplace.addEventListener('click', () => {
-            let deleteIndex = arr.findIndex(u => u.id === index.id);
+            let deleteIndex = arr.findIndex(u => u.id === elm.id);
             let deletedUser = arr.splice(deleteIndex, 1);
             workers.push(deletedUser[0]);
             saveAll();
             renderroom(room);
             AfficherWorkers();
         });
-
         salle.appendChild(card);
     });
 }
