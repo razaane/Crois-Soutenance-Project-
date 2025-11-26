@@ -31,6 +31,7 @@ let telRegex = /^[0-9]{10}$/;
 
 
 
+
 let workers = JSON.parse(localStorage.getItem("workers")) || [];
 
 let SalleConférences = JSON.parse(localStorage.getItem("SalleConférences")) || [];
@@ -344,7 +345,7 @@ function renderroom(room) {
             w-full bg-pink-50/90 backdrop-blur-sm shadow-lg 
             border border-pink-200 rounded-2xl p-3 gap-3 
             hover:scale-105 transition-transform duration-200
-        `;
+        `
         card.innerHTML = `
             <div class="flex flex-col sm:flex-row items-center gap-3 w-full flex-wrap">
                 <img src="${index.workerPhoto}" alt="${index.workerName}" 
